@@ -5,18 +5,48 @@ const createError = require('http-errors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { generateToken, generateRefreshToken } = require("../helper/auth");
+const fetch = require('node-fetch');
+
 
 const verifyAccount = async (req, res, next) => {
     try {
         const { token } = req.query
 
         const { rows } = await pool.query('SELECT * FROM users WHERE verification_token = $1', [token]);
+        
+        console.log(rows);
 
         if (rows.length === 0) {
             return next(createError(400, "Token not found"));
         }
 
         await pool.query('UPDATE users SET verified = true WHERE verification_token = $1', [token]);
+
+        const notificationData = {
+            app_id: "81f21d3d-8fe1-4ebb-bad5-eefb4094ddd5",
+            name: "Baru Bergabung",
+            included_segments: ["Total Subscriptions"],
+            contents: {
+                "en": `User telah bergabung`
+            },
+            data: {
+                rows
+            }
+        }
+
+        console.log(notificationData);
+        
+        const notificationResponse = await fetch('https://api.onesignal.com/notifications', {
+            method: 'POST',
+            headers: { accept: 'application/json', 'content-type': 'application/json' },
+            Authorization: `Bearer NTI2NjQ3NDUtNzc3NS00M2Q2LTliMjEtN2IyN2IzMWNjNzE3`,
+            body: JSON.stringify(notificationData)
+        })
+
+        console.log(notificationResponse);
+
+        const result = await notificationResponse.json()
+        console.log(result);
 
         response(res, null, 200, 'Email verified successfully')
     } catch (error) {
