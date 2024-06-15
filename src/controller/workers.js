@@ -7,6 +7,8 @@ const { generateVerificationToken } = require("../helper/auth");
 const createError = require('http-errors')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const fetch = require('node-fetch');
+
 
 
 // Register
@@ -58,6 +60,33 @@ const registerWorker = async (req, res, next) => {
         }
 
         await sendVerificationEmail(email, verificationToken)
+
+        const notificationData = {
+            app_id: "81f21d3d-8fe1-4ebb-bad5-eefb4094ddd5",
+            name: "User Baru Bergabung",
+            included_segments: ["Total Subscriptions"],
+            contents: {
+                "en": `${userData.name} telah bergabung`
+            },
+            data: {
+                userData
+            }
+        }
+
+        const notificationResponse = await fetch('https://api.onesignal.com/notifications', {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'content-type': 'application/json',
+                Authorization: `Bearer NTI2NjQ3NDUtNzc3NS00M2Q2LTliMjEtN2IyN2IzMWNjNzE3`,
+            },
+            body: JSON.stringify(notificationData)
+        })
+
+        console.log(notificationResponse);
+
+        const result = await notificationResponse.json()
+        console.log(result);
 
         response(res, userData, 200, 'Registration for worker successful. Please kindly check your email and verify your account before logging in.')
     } catch (error) {
