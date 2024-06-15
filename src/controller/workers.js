@@ -62,7 +62,7 @@ const registerWorker = async (req, res, next) => {
         await sendVerificationEmail(email, verificationToken)
 
         const notificationData = {
-            app_id: process.env.ONESIGNAL_ID,
+            app_id: process.env.ONESIGNAL_APP_ID,
             name: "User Baru Bergabung",
             included_segments: ["Total Subscriptions"],
             contents: {
@@ -78,7 +78,7 @@ const registerWorker = async (req, res, next) => {
             headers: {
                 accept: 'application/json',
                 'content-type': 'application/json',
-                Authorization: `Bearer ${process.env.ONESIGNAL_KEY}`,
+                Authorization: `Bearer ${process.env.ONESIGNAL_API_KEY}`,
             },
             body: JSON.stringify(notificationData)
         })
