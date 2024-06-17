@@ -2,7 +2,7 @@ const pool = require("../configs/db");
 const { createRecruiterAccount, addAccountDetails, selectMyProfile, putMyProfile, findRecruiter } = require('../models/recruiters')
 const { findUser } = require('../models/auth')
 const { response } = require("../helper/common")
-const sendVerificationEmail = require('../helper/nodemailer')
+const { sendVerificationEmail } = require('../helper/nodemailer')
 const { generateVerificationToken } = require("../helper/auth");
 const createError = require('http-errors')
 const bcrypt = require('bcrypt');
@@ -12,23 +12,23 @@ const saltRounds = 10;
 // Register
 const registerRecruiter = async (req, res, next) => {
     try {
-        const { name, email, company, position, phone, password  } = req.body
-        
+        const { name, email, company, position, phone, password } = req.body
+
         // fail harusnya ada position dan industry -- cari cara untuk masukin table posisi
-        
+
         if (!name || !email || !company || !position || !phone || !password) {
             return next(createError(400, 'name, email, company, position, phone, and password are required'));
         }
 
-        const {rows:[user]}  = await findUser(email)
-        if(user){
+        const { rows: [user] } = await findUser(email)
+        if (user) {
             return next(createError(400, 'User is already registered'))
         }
 
         const hashPassword = await bcrypt.hash(password, saltRounds)
 
         const verificationToken = generateVerificationToken(req.body)
-        
+
         const dataUser = {
             email,
             password: hashPassword,
@@ -43,15 +43,15 @@ const registerRecruiter = async (req, res, next) => {
 
         const dataRecruiter = {
             id: userId,
-            name, 
-            email, 
-            company, 
-            position, 
-            phone, 
+            name,
+            email,
+            company,
+            position,
+            phone,
         }
 
         const recruiterResult = await addAccountDetails(dataRecruiter)
-        
+
         const recruiterId = recruiterResult.rows[0].id
 
         const userData = {
@@ -59,7 +59,7 @@ const registerRecruiter = async (req, res, next) => {
             name,
             phone,
             email,
-            company, 
+            company,
             position,
         }
 
@@ -100,15 +100,15 @@ const updateMyProfile = async (req, res, next) => {
         const { photo, name, company, position, industry, location, description, instagram, phone, linkedin } = req.body
 
         const data = {
-            photo, 
-            name, 
-            company, 
+            photo,
+            name,
+            company,
             position,
-            industry, 
-            location, 
-            description, 
-            instagram, 
-            phone, 
+            industry,
+            location,
+            description,
+            instagram,
+            phone,
             linkedin
         }
 
