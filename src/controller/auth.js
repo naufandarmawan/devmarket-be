@@ -5,6 +5,7 @@ const createError = require('http-errors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { generateToken, generateRefreshToken } = require("../helper/auth");
+const { sendResetEmail } = require('../helper/nodemailer');
 
 
 const verifyAccount = async (req, res, next) => {
@@ -129,10 +130,70 @@ const refreshToken = async (req, res, next) => {
     response(res, data, 200, 'Refresh token success')
 }
 
+// Request password reset
+const requestForgotPassword = async (req, res, next) => {
+    try {
+        const { email } = req.body;
+        const { rows: [user] } = await findUser(email);
+
+        if (!user) {
+            return next(createError(400, "Email not found"));
+        }
+
+        const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+        const resetCodeExpiry = Date.now() + 3600000; // 1 hour expiry
+
+        await pool.query('UPDATE users SET reset_code = $1, reset_code_expiry = $2 WHERE email = $3', [resetCode, resetCodeExpiry, email]);
+        await sendResetEmail(email, resetCode);
+
+        response(res, null, 200, 'A reset code has been sent to your email.');
+    } catch (error) {
+        next(new createError[500]);
+    }
+};
+
+// Verify reset code
+const verifyForgotPassword = async (req, res, next) => {
+    try {
+        const { email, resetCode } = req.body;
+        const { rows: [user] } = await findUser(email);
+
+        if (!user || user.reset_code !== resetCode || Date.now() > user.reset_code_expiry) {
+            return next(createError(400, 'Invalid or expired reset code.'));
+        }
+
+        response(res, null, 200, 'Reset code is valid. Please proceed to reset your password.');
+    } catch (error) {
+        next(new createError[500]);
+    }
+};
+
+// Reset password
+const forgotPassword = async (req, res, next) => {
+    try {
+        const { email, resetCode, newPassword } = req.body;
+        const { rows: [user] } = await findUser(email);
+
+        if (!user || user.reset_code !== resetCode || Date.now() > user.reset_code_expiry) {
+            return next(createError(400, 'Invalid or expired reset code.'));
+        }
+
+        const passwordHash = await bcrypt.hash(newPassword, 10);
+        await pool.query('UPDATE users SET password = $1, reset_code = NULL, reset_code_expiry = NULL WHERE email = $2', [passwordHash, email]);
+
+        response(res, null, 200, 'Password has been reset successfully. Please log in with your new password.');
+    } catch (error) {
+        next(new createError[500]);
+    }
+};
+
 module.exports = {
     verifyAccount,
     login,
     logout,
     checkRole,
-    refreshToken
+    refreshToken,
+    requestForgotPassword,
+    verifyForgotPassword,
+    forgotPassword
 };

@@ -337,3 +337,7 @@ CREATE TABLE hire (
 -- ADD verification_token VARCHAR(255);
 
 -- ALTER TABLE users ALTER COLUMN verification_token TYPE varchar(800)
+
+ALTER TABLE users
+ADD reset_code VARCHAR(6),
+ADD reset_code_expiry TIMESTAMP;
