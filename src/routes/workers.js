@@ -10,10 +10,10 @@ const route = express.Router()
 // /product
 route
   .post('/register', registerWorker)
-  .get('/', protect, getWorkers)
+  .get('/', getWorkers)
   .get('/profile', protect, checkRole('Worker'), getMyProfile)
   .put('/profile', protect, checkRole('Worker'), updateMyProfile)
-  .get('/profile/:id', protect, getWorkerProfile)
+  .get('/profile/:id', getWorkerProfile)
   .put('/profile/photo', protect, checkRole('Worker'), upload.single('file'), uploadCloudinary, updateMyPhoto)
 
 module.exports = route
