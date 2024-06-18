@@ -134,17 +134,25 @@ const refreshToken = async (req, res, next) => {
 const requestForgotPassword = async (req, res, next) => {
     try {
         const { email } = req.body;
+        console.log(email);
+
         const { rows: [user] } = await findUser(email);
+        console.log(user);
 
         if (!user) {
             return next(createError(400, "Email not found"));
         }
 
         const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+        console.log(resetCode);
         const resetCodeExpiry = Date.now() + 3600000; // 1 hour expiry
+        console.log(resetCodeExpiry);
 
-        await pool.query('UPDATE users SET reset_code = $1, reset_code_expiry = $2 WHERE email = $3', [resetCode, resetCodeExpiry, email]);
-        await sendResetEmail(email, resetCode);
+        const result = await pool.query('UPDATE users SET reset_code = $1, reset_code_expiry = $2 WHERE email = $3', [resetCode, resetCodeExpiry, email]);
+        console.log(result);
+
+        const resultEmail = await sendResetEmail(email, resetCode);
+        console.log(resultEmail);
 
         response(res, null, 200, 'A reset code has been sent to your email.');
     } catch (error) {
