@@ -166,6 +166,9 @@ const verifyForgotPassword = async (req, res, next) => {
     try {
         const { email, resetCode } = req.body;
         const { rows: [user] } = await findUser(email);
+        
+        console.log(Date.now());
+        console.log(user.reset_code_expiry);
 
         if (!user || user.reset_code !== resetCode || Date.now() > user.reset_code_expiry) {
             return next(createError(400, 'Invalid or expired reset code.'));
