@@ -156,6 +156,7 @@ const requestForgotPassword = async (req, res, next) => {
 
         response(res, null, 200, 'A reset code has been sent to your email.');
     } catch (error) {
+        console.error('Error in requestForgotPassword:', error);
         next(new createError[500]);
     }
 };
