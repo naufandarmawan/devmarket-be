@@ -167,8 +167,8 @@ const verifyForgotPassword = async (req, res, next) => {
         const { email, resetCode } = req.body;
         const { rows: [user] } = await findUser(email);
 
-        const currentTime = Date.now();
-        const resetCodeExpiryTime = new Date(user.reset_code_expiry).getTime();
+        const currentTime = new Date(Date.now())
+        const resetCodeExpiryTime = new Date(user.reset_code_expiry)
         
         console.log(Date.now());
         console.log(user.reset_code_expiry);
