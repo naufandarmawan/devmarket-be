@@ -173,6 +173,12 @@ const verifyForgotPassword = async (req, res, next) => {
         console.log(currentTime);
         console.log(resetCodeExpiryTime);
 
+        const currentTime2 = Date.now();
+        const resetCodeExpiryTime2 = new Date(user.reset_code_expiry).getTime();
+
+        console.log(currentTime2);
+        console.log(resetCodeExpiryTime2);
+
         if (!user || user.reset_code !== resetCode || currentTime > resetCodeExpiryTime) {
             return next(createError(400, 'Invalid or expired reset code.'));
         }
