@@ -145,7 +145,7 @@ const requestForgotPassword = async (req, res, next) => {
 
         const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
         console.log(resetCode);
-        const resetCodeExpiry = Date.now() + 3600000; // 1 hour expiry
+        const resetCodeExpiry = new Date(Date.now() + 3600000).toISOString();
         console.log(resetCodeExpiry);
 
         const result = await pool.query('UPDATE users SET reset_code = $1, reset_code_expiry = $2 WHERE email = $3', [resetCode, resetCodeExpiry, email]);
