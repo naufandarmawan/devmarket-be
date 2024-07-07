@@ -22,7 +22,7 @@
       <ul>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#features">Features</a></li>
-        <li><a href="#screenshots">Screeshots</a></li>
+        <li><a href="#project-structure">Project Structure</a></li>
       </ul>
     </li>
     <li>
@@ -69,7 +69,7 @@ In response to industry demands, where 72% of companies rely on mobile applicati
 
 
 
-## Features
+### Features
 
 * Account creation, 
 * Display and search worker listings, 
@@ -87,100 +87,69 @@ In response to industry demands, where 72% of companies rely on mobile applicati
 
 
 
-## Screenshots
+### Project Structure
 
-<table style="width: 100%; border-collapse: collapse;">
-  <colgroup>
-    <col style="width: 33.33%;">
-    <col style="width: 33.33%;">
-    <col style="width: 33.33%;">
-  </colgroup>
-  <tr>
-    <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Landing Page</th>
-    <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Login Page</th>
-    <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Worker Register Page</th>
-  </tr>
-  <tr>
-    <td style="padding: 8px; text-align: left; border: 1px solid #ddd;">
-      <div style="width: 100%; height: 300px; overflow: hidden;">
-        <img src="./screenshots/screenshot-11.png" alt="Screenshot 1" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-      </div>
-    </td>
-    <td style="padding: 8px; text-align: left; border: 1px solid #ddd;">
-      <div style="width: 100%; height: 300px; overflow: hidden;">
-        <img src="./screenshots/screenshot-1.png" alt="Screenshot 2" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-      </div>
-    </td>
-    <td style="padding: 8px; text-align: left; border: 1px solid #ddd;">
-      <div style="width: 100%; height: 300px; overflow: hidden;">
-        <img src="./screenshots/screenshot-2.png" alt="Screenshot 3" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Recruiter Register Page</th>
-    <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Search Page</th>
-    <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Worker Details Page</th>
-  </tr>
-  <tr>
-    <td style="padding: 8px; text-align: left; border: 1px solid #ddd;">
-      <div style="width: 100%; height: 300px; overflow: hidden;">
-        <img src="./screenshots/screenshot-3.png" alt="Screenshot 1" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-      </div>
-    </td>
-    <td style="padding: 8px; text-align: left; border: 1px solid #ddd;">
-      <div style="width: 100%; height: 300px; overflow: hidden;">
-        <img src="./screenshots/screenshot-4.png" alt="Screenshot 2" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-      </div>
-    </td>
-    <td style="padding: 8px; text-align: left; border: 1px solid #ddd;">
-      <div style="width: 100%; height: 300px; overflow: hidden;">
-        <img src="./screenshots/screenshot-7.png" alt="Screenshot 3" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Hire Worker Page</th>
-    <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Worker Profile Page</th>
-    <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Edit Worker Profile Page</th>
-  </tr>
-  <tr>
-    <td style="padding: 8px; text-align: left; border: 1px solid #ddd;">
-      <div style="width: 100%; height: 300px; overflow: hidden;">
-        <img src="./screenshots/screenshot-8.png" alt="Screenshot 1" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-      </div>
-    </td>
-    <td style="padding: 8px; text-align: left; border: 1px solid #ddd;">
-      <div style="width: 100%; height: 300px; overflow: hidden;">
-        <img src="./screenshots/screenshot-9.png" alt="Screenshot 2" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-      </div>
-    </td>
-    <td style="padding: 8px; text-align: left; border: 1px solid #ddd;">
-      <div style="width: 100%; height: 300px; overflow: hidden;">
-        <img src="./screenshots/screenshot-10.png" alt="Screenshot 3" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Recruiter Profile Page</th>
-    <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Edit Recruiter Profile Page</th>
-  </tr>
-  <tr>
-    <td style="padding: 8px; text-align: left; border: 1px solid #ddd;">
-      <div style="width: 100%; height: 300px; overflow: hidden;">
-        <img src="./screenshots/screenshot-5.png" alt="Screenshot 1" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-      </div>
-    </td>
-    <td style="padding: 8px; text-align: left; border: 1px solid #ddd;">
-      <div style="width: 100%; height: 300px; overflow: hidden;">
-        <img src="./screenshots/screenshot-6.png" alt="Screenshot 2" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-      </div>
-    </td>
-  </tr>
-  <!-- Repeat similar rows for more screenshots -->
-</table>
+```
+└── 📁backend
+    └── .env
+    └── .env.example
+    └── .eslintrc.json
+    └── .gitignore
+    └── eslint.config.mjs
+    └── index.js
+    └── package-lock.json
+    └── package.json
+    └── 📁queryDB
+        └── basic.sql
+    └── README.md
+    └── 📁src
+        └── 📁configs
+            └── cloudinary.js
+            └── db.js
+            └── nodemailer.js
+            └── redis.js
+        └── 📁controller
+            └── assets.js
+            └── auth.js
+            └── experience.js
+            └── hire.js
+            └── portfolio.js
+            └── recruiters.js
+            └── skill.js
+            └── workers.js
+        └── 📁helper
+            └── auth.js
+            └── common.js
+            └── nodemailer.js
+        └── 📁middlewares
+            └── assets.js
+            └── auth.js
+            └── cloudinary.js
+            └── redis.js
+        └── 📁models
+            └── assets.js
+            └── auth.js
+            └── experience.js
+            └── hire.js
+            └── portfolio.js
+            └── recruiters.js
+            └── skill.js
+            └── workers.js
+        └── 📁routes
+            └── assets.js
+            └── auth.js
+            └── experience.js
+            └── hire.js
+            └── portfolio.js
+            └── recruiters.js
+            └── skill.js
+            └── workers.js
+    └── 📁uploads
+    └── vercel.json
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 
