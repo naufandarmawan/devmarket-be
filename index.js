@@ -30,7 +30,7 @@ app.use(xss())
 app.use(cors())
 
 app.get('/', (req, res, next) => {
-  res.send('Backend Peworld (Naufan - Mobile 19)')
+  res.send('Backend Peworld API is running')
 })
 
 
